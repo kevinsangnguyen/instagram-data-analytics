@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/scripts/bootstrap/dist/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script src="/scripts/chart.js/dist/Chart.min.js"></script>
+  <script src="/scripts/angular-chart.js/dist/angular-chart.min.js"></script>
+  <script src="/scripts/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+  <script src="./bower_components/keen-js/dist/keen.min.js"></script>
+  <script src="./bower_components/angular-keenio/dist/angular-keenio.min.js"></script>
+
+
+  <script type='text/javascript'>
+	  var app = angular.module('app', ['chart.js','ui.bootstrap','angular-keenio']);
+
+    app.config(function (ChartJsProvider) {
+      // Configure all charts
+      ChartJsProvider.setOptions({
+        chartColors: ['#f79696', '#568bff'],
+        responsive: true
+      })
+    });
+
+    app.config(['tbkKeenConfigProvider', function(tbkKeenConfigProvider) {
+    var config = {
+      projectId: "59706a8cc9e77c00015d9b54",
+      readKey:   "FBF930F619659FC21D5DC02BCD919CDFF82B4EC098F3391DA160A1E848DE8F4701744F8746AC545C5A0AC96CCC7241045D59DB656995E09CBF4CC4F23CB72674D6B3DF3B5D62DC4E72C1DE6C725A74798013A01FC0064FC150831C5EF0A1859B",     // if you want to get values from Keen.io
+      writeKey:  "D0CC13004AF70CFFF9F8D0C6A8E0DEB4F906F388B784C9883C4C6CDC8037A5ABCB2A1D2207C4F187BA54B4624C1E94653FABA25B3F47F95ECFBB136AF5C77C514FCFA4155E89FCD85D6B898A89F37299188D46765E1304F9C9215C5E258C6005",    // if you want to save data to Keen.io
+      masterKey: "C462581C153CB6A80DE2D7AEB02B7693A9D3D6DA95E305110EA2F917CC092720"    // if you want to get data from your collections from Keen.io
+    };
+
+    tbkKeenConfigProvider
+      .projectId(config.projectId)
+      .readKey(config.readKey)
+      .writeKey(config.writeKey)
+      .masterKey(config.masterKey);
+    }])
+  </script>
+
+
+
+  <script type="text/javascript" src="./controllers/main.js"></script>
+  <title>Pikolo</title>
+</head>
+<body ng-controller="Main">
+  <div class="container">
+    <div class="input-group add-on">
+        <input class="form-control" placeholder="Instagram Handle" type="text" ng-model="username">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit" ng-click="search()"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+    </div>
+  </div>
+
+  <div id="container" class="container">
+    <div class="row">
+      <div class="col-lg-12 col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">Instagram Likes/Comments</div>
+          <div class="panel-body">
+            <canvas class="chart chart-bar" chart-data="data" chart-labels="IDs"
+                    chart-options="options" chart-series="series"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Keen IO Visual</h1>
+    <div data-tbk-keen-barchart
+      query="query"
+      height="350"
+      width="auto"
+      chart-options="chartOptions">
+    </div>
+  </div>
+</body>
+</html>
