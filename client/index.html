@@ -16,6 +16,15 @@
   <script type='text/javascript'>
 	  var app = angular.module('app', ['chart.js','ui.bootstrap','angular-keenio']);
 
+    app.config(['$httpProvider', function($httpProvider) {
+
+        $httpProvider.defaults.useXDomain = true;
+
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    }
+    ]);
+
+
     app.config(function (ChartJsProvider) {
       // Configure all charts
       ChartJsProvider.setOptions({

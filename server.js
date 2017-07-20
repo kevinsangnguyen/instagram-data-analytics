@@ -11,6 +11,8 @@ app.use(function(req, res, next) {
   next();
 });
 
+require('./server/config/routes.js')(app);
+
 // require('./server/config/routes.js')(app);
 app.set('port', (process.env.PORT || 5000));
 

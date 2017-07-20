@@ -1,7 +1,6 @@
 app.controller('Main', ['$scope','$http','tbkKeenClient','tbkKeen', function($scope,$http,KeenClient,Keen) {
   $scope.search = function(){
-    var url = 'https://www.instagram.com/' + $scope.username + '/media/';
-    $http.get(url).success(function(data){
+    $http.get('/search/'+$scope.username).success(function(data){
           var num = 1;
           var time_stamps = [];
           $scope.IDs = [];
